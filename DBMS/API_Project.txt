@@ -1,0 +1,162 @@
+﻿CREATE DATABASE "API_Project_Database"
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'English_United States.1252'
+       LC_CTYPE = 'English_United States.1252'
+       CONNECTION LIMIT = -1;
+
+--create project table
+create table projects(project_id serial primary key,project_title varchar(20) not null,project_description text,project_logo text);
+
+--create module table
+create table modules(module_id serial primary key,module_title varchar(20) not null,module_description text,project_id int references projects(project_id));
+
+--create APIs table
+create table APIs(api_id serial primary key,api_url text not null,api_title varchar(20) not null,api_description text,method char(6) check(method='get' or method='post' or method='put' or method='delete' or method='patch'),request varchar(50),response varchar(50),module_id int references modules(module_id));
+
+--create users table
+create table users(user_id serial primary key,profile_pic varchar(50),first_name varchar(20),last_name varchar(20),gender char(6),email text);
+
+--create user_address table
+create table user_address(user_address_id serial primary key,address1 text,address2 text,city varchar(20),state varchar(20),zip varchar(10),user_id int references users(user_id));
+
+--create table project_user table
+create table project_user(project_id int references projects(project_id),user_id int references users(user_id),primary key(project_id,user_id));
+
+--insert data into projects table
+insert into projects values(1,'api project','api project handles all operations related to api in the projects','logo1.png');
+insert into projects values(2,'vehicle parking system','This system reduce manual work of managing parking system','logo2.png');
+insert into projects values(3,'GST billing system','It helps you to do calculation of products including gst','logo3.png');
+insert into projects values(4,'dairy management system','This system reduce manual work of managing dairy system','logo4.png');
+insert into projects values(5,'kids brains sharp','It provides multiple levels to solve,it is for kids','logo5.png');
+insert into projects values(6,'online shoppig system','It gives easy options to do online shopping','logo6.png');
+insert into projects values(7,'library management system','This system is used to keep a record of books present in a library','logo7.png');
+insert into projects values(8,'course management system','The goal is to create interaction between students and instructors','logo8.png');
+insert into projects values(9,'online bank management system','The main is to create an online banking platfotm','logo9.png');
+insert into projects values(10,'we punekar','we punekar project stores luggage of users for given time','logo10.png');
+
+--insert data into module table
+insert into modules values(1,'project module','This module contains all operations related to project section',1);
+insert into modules values(2,'api module','This module contains all operations related to api section',1);
+insert into modules values(3,'customer module','This module contains all operations related to customers section',2);
+insert into modules values(4,'vehicle module','This module contains all operations related to vehicle section',2);
+insert into modules values(5,'slot module','This module contains all operations related to slot section',2);
+insert into modules values(6,'user module','This module contains all operations related to user section',5);
+insert into modules values(7,'topic module','This module contains all operations related to topics section',5);
+insert into modules values(8,'user module','This module contains all operations related to user section',10);
+insert into modules values(9,'staff module','This module contains all operations related to staff section',10);
+insert into modules values(10,'instructor module','This module contains all operations related to instructor section',7);
+
+--insert data into API table
+
+insert into APIs values(1,'api_project/project_module/delete','delete api','this will delete perticular project','get','api_project/project_module/delete.html','api_project/project_module/delete.html',1);
+insert into APIs values(2,'api_project/project_module/create','create api','this will create perticular project','post','api_project/project_module/create.html','api_project/project_module/create.html',1);
+insert into APIs values(3,'we_punekar/user_module/update','update api','this will update perticular user','put','we_punekar/user_module/update.html','we_punekar/user_module/update.html',8);
+insert into APIs values(4,'we_punekar/user_module/create','create api','this will create perticular user','post','we_punekar/user_module/create.html','we_punekar/user_module/create.html',8);
+insert into APIs values(5,'kids_brain_sharp/user_module/create','create api','this will create perticular user','post','kids_brain_sharp/user_module/create.html','kids_brain_sharp/user_module/create.html',6);
+insert into APIs values(6,'kids_brain_sharp/user_module/search.html','search api','this will search perticular user','get','kids_brain_sharp/user_module/search.html','kids_brain_sharp/user_module/search.html',6);
+insert into APIs values(7,'kids_brain_sharp/topic_module/add.html','add api','this will add perticular topic','post','kids_brain_sharp/topic_module/add.html','kids_brain_sharp/topic_module/add.html',7);
+insert into APIs values(8,'vehicle_parking_system/customer_module/add','add api','this will add perticular customer','post','vehicle_parking_system/customer_module/add.html','vehicle_parking_system/customer_module/add.html',3);
+insert into APIs values(9,'vehicle_parking_system/customer_module/delete','delete api','this will delete perticular project','get','vehicle_parking_system/customer_module/delete.html','vehicle_parking_system/customer_module/delete.html',3);
+insert into APIs values(10,'library_management_system/instructor_module/add','add api','this will add perticular instructor','post','library_management_system/instructor_module/add.html','library_management_system/instructor_module/add.html',10);
+
+-- insert data into users table;
+insert into users values(1,'profilepic1.png','prajakta','sutar','female','prajakta@gmail.com');
+insert into users values(2,'profilepic2.png','pallavi','jain','female','pallavi@gmail.com');
+insert into users values(3,'profilepic3.png','pratik','patil','male','pratik@gmail.com');
+insert into users values(4,'profilepic4.png','amitesh','kumar','male','amitesh@gmail.com');
+insert into users values(5,'profilepic5.png','kanchan','kumari','female','kanchan@gmail.com');
+insert into users values(6,'profilepic16.png','ameya','patil','male','ameya@gmail.com');
+insert into users values(7,'profilepic7.png','krishna','patil','male','krishna@gmail.com');
+insert into users values(8,'profilepic8.png','riya','shaha','female','riya@gmail.com');
+insert into users values(9,'profilepic9.png','swanand','patil','male','swanand@gmail.com');
+insert into users values(10,'profilepic10.png','husain','shaikh','male','husain@gmail.com');
+
+--insert data into user_address table;
+insert into user_address values(1,'Koregaon,Satara','Sangvi,Pune','satara','Maharashtra','123456',1); 
+insert into user_address values(2,'Pimpari,Pune','Pimpari Pune','pune','Maharashtra','678902',10); 
+insert into user_address values(3,'Shirur,pune','Wakad,Pune','Pune','Maharashtra','156768',3); 
+insert into user_address values(4,'Ludhiyana,Punjab','Bavdhan,Pune','Ludhiyana','Punjab','679123',2); 
+insert into user_address values(5,'chinchwad,pune','chinchwad,pune','pune','Maharashtra','275136',9); 
+insert into user_address values(6,'Jodhpur,Rajastan','kothrud,Pune','Jodhpur','Rajastan','157982',5); 
+insert into user_address values(7,'Agra,Delhi','Bavdhan,Pune','Agra','Delhi','923456',8); 
+insert into user_address values(8,'Patna,Bihar','Baner,Pune','patna','Bihar','341256',4); 
+insert into user_address values(9,'Katraj,pune','Katraj,pune','Pune','Maharashtra','213456',7); 
+insert into user_address values(10,'Baner,Pune','Baner,Pune','Pune','Maharashtra','312456',6); 
+
+--insert data into project_user table;
+insert into project_user values(5,1);
+insert into project_user values(1,2);
+insert into project_user values(2,3);
+insert into project_user values(7,4);
+insert into project_user values(5,5);
+insert into project_user values(10,6);
+insert into project_user values(2,7);
+insert into project_user values(10,8);
+insert into project_user values(1,9);
+insert into project_user values(1,10);
+
+--query to get list of project
+select * from projects;
+
+--query to get list of module
+select * from modules;
+
+--query to get list of API
+select * from APIs;
+
+--query to get list of user
+select * from users;
+
+--query to get list of user_address
+select * from user_address;--query to get list of project and its module and API
+select p.project_title,m.module_title,a.api_title from projects p join modules m on p.project_id=m.project_id join APIs a on m.module_id=a.module_id;
+
+--query to get list of API with project name
+select a.api_title,p.project_title from projects p join modules m on p.project_id=m.project_id join APIs a on m.module_id=a.module_id;
+
+--query to get total number of APIs module wise
+select count(a.api_id),m.module_title from APIs a join modules m on a.module_id=m.module_id group by m.module_id;
+
+--query to get total number of APIs project wise
+select count(a.api_id),p.project_title from APIs a join modules m on a.module_id=m.module_id join projects p on p.project_id=m.project_id group by p.project_id;
+
+--query to get list of user with user address
+select u.first_name,ua.address1 from users u join user_address ua on u.user_id=ua.user_id; 
+
+--query to get list of project assigned to perticular user
+select p.project_title,u.first_name from projects p join project_user pu on p.project_id=pu.project_id join users u on pu.user_id=u.user_id;
+
+--query to search project with project title using LIKE
+select project_title from projects where project_title like 'o%';
+
+--query to get user list who have same state
+select u.first_name,ua.state from users u join user_address ua on u.user_id=ua.user_id where ua.state='Maharashtra';
+
+--query to get users list my zipcode
+select u.first_name,ua.zip from users u join user_address ua on u.user_id=ua.user_id where ua.zip='123456';
+
+--query to get list of API whose method is post
+select api_title,method from APIs where method='post';
+
+--query to get list of API whose method is put
+select api_title,method from APIs where method='put';
+
+--query to get list of API whose method is delete
+select api_title,method from APIs where method='delete';
+
+--query to get list of API whose method is get
+select api_title,method from APIs where method='get';
+
+--query to get list of API for specific module
+****solution 1:
+select a.api_title,m.module_title from APIs a join modules m on m.module_id=a.module_id where m.module_title='project module';
+****solution 2:
+select APIs.api_title,modules.module_title from APIs,modules where modules.module_id=APIs.module_id and modules.module_title='project module';
+
+--query to get list of modules for specific project
+****solution 1:
+select a.api_title,p.project_title from APIs a join modules m on m.module_id=a.module_id join projects p on p.project_id=m.project_id where p.project_title='we punekar';
+****solution 2:
+select APIs.api_title,projects.project_title from APIs,modules,projects where modules.module_id=APIs.module_id and projects.project_id=modules.project_id and modules.module_title='project module';

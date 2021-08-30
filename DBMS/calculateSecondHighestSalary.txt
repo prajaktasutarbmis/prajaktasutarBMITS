@@ -1,0 +1,29 @@
+******Employee Table*********
+
+1| "sooraj"  |  "sharma"    |  "sooraj@gmail.com"  |  "Ind" | 30 | 50000
+2| "raj"     |  "malhotra"  |  "raj@gmail.com"     |  "Ind" | 25 | 35000
+3| "meera"   |  "shaha"     |  "meera@gmail.com"   |  "Ind" | 28 | 40000
+4| "rajesh"  |  "kumar"     |  "rajesh@gmail.com"  |  "Ind" | 40 | 100000
+5| "samiha"  |  "shaikh"    |  "samiha@gmail.com"  |  "Ind" | 24 | 30000
+6| "jayesh"  |  "kadam"     |  "jayesh@gmail.com"  |  "Ind" | 20 | 15000
+
+
+Question:
+calculate second highest salary of employee?
+
+solution 1:
+select max(salary) from employee where salary<(select max(salary) from employee);
+
+solution 2:
+select max(salary) from employee where salary!=(select max(salary) from employee);
+
+solution 3:
+select salary from (select salary from employee order by salary desc limit 2)as emp order by salary limit 1;
+
+solution 4:
+select min(salary) from (select salary from employee order by salary desc limit 2) as emp;
+
+solution 5:
+select max(salary) from employee where salary not in (select max(salary) from employee);
+
+
