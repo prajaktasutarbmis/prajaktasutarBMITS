@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Add values in the local storage
+       localStorage.setItem('Name','Prajakta');
+       localStorage.setItem('Address','Satara');
+       localStorage.setItem('PhoneNo','9876543210');
+
+        //Fetch values from the local storage
+       document.write(localStorage.getItem('Name'));
+        console.log(localStorage.getItem('Address'));
+        console.log(localStorage.getItem('PhoneNo'));
+
+        //Update value of name 
+        localStorage.setItem('Name','Amruta');
+        console.log(localStorage.getItem('Name'));
+
+        //Delete element from local storage
+        localStorage.removeItem('Adress');
+
+        //Add array in to local storage
+        let friends=['Pratik','Nikita','Pavan','Jija'];
+        //store array into the local storage
+        
+        localStorage.setItem('bestFriends',JSON.stringify(friends));
+        //Retrive elements from array
+        let group=JSON.parse(localStorage.getItem('bestFriends'));
+        console.log(group[1]);
+        //clear local storage
+        //localStorage.clear();
+
+        //sessionStorage 
+        //set data in the sessionStorage
+        sessionStorage.setItem('sName','Raj');
+        sessionStorage.setItem('sAddress','Pune');
+        sessionStorage.setItem('sPhoneNo','9876543210');
+
+        //get data from the session storage
+        console.log(sessionStorage.getItem('sName'));
+        console.log(sessionStorage.getItem('sAddress'));
+        console.log(sessionStorage.getItem('sPhoneNo'));
+</script>
+</body>
+</html>
