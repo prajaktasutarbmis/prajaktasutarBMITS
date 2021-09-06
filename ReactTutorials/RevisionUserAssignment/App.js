@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import PortalDemo from './components/UI/PortalDemo';
 import AddUser from './components/Users/AddUser';
 import UsersList from './components/Users/UsersList';
 
@@ -10,10 +11,13 @@ function App() {
     });
   } 
   return (
-    <div>
+    //creating a fragments
+    <React.Fragment>
+      <PortalDemo></PortalDemo>
       <AddUser onAddUser={addUserHandler}></AddUser>
       <UsersList users={usersList}></UsersList>
-    </div>
+      
+    </React.Fragment>
   );
 }
 
